@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Matt's Mosh List | Baltimore Concerts</title>
+<title>MoshList.com | Baltimore Concerts</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
 <style>
 :root{
-  --bg:#0b0b0b;
+  --black:#070707;
+  --black2:#111;
   --panel:#151515;
-  --red:#c40000;
-  --red2:#ff2e2e;
-  --gray:#999;
-  --white:#fff;
-  --border:#2a2a2a;
+  --red:#c10000;
+  --red2:#ff2a2a;
+  --gray:#9b9b9b;
+  --line:#2b2b2b;
+  --white:#ffffff;
 }
 
 *{
@@ -25,33 +26,42 @@
   box-sizing:border-box;
 }
 
+html{
+  scroll-behavior:smooth;
+}
+
 body{
-  background:var(--bg);
-  color:white;
+  background:var(--black);
+  color:var(--white);
   font-family:'Roboto',sans-serif;
 }
 
+img{
+  max-width:100%;
+  display:block;
+}
+
 a{
-  color:white;
   text-decoration:none;
+  color:inherit;
 }
 
 .container{
-  width:95%;
-  max-width:1400px;
+  width:94%;
+  max-width:1450px;
   margin:auto;
 }
 
 /* HEADER */
 header{
-  background:#000;
-  border-bottom:2px solid var(--red);
   position:sticky;
   top:0;
   z-index:999;
+  background:#000;
+  border-bottom:2px solid var(--red);
 }
 
-.nav{
+.navbar{
   display:flex;
   justify-content:space-between;
   align-items:center;
@@ -60,9 +70,9 @@ header{
 
 .logo{
   font-family:'Oswald',sans-serif;
-  font-size:2rem;
-  color:white;
+  font-size:2.4rem;
   letter-spacing:2px;
+  text-transform:uppercase;
 }
 
 .logo span{
@@ -70,9 +80,15 @@ header{
 }
 
 nav ul{
-  list-style:none;
   display:flex;
+  list-style:none;
   gap:28px;
+}
+
+nav a{
+  font-weight:700;
+  font-size:.95rem;
+  text-transform:uppercase;
 }
 
 nav a:hover{
@@ -81,75 +97,81 @@ nav a:hover{
 
 /* HERO */
 .hero{
-  background:url('hero-banner.jpg') center/cover no-repeat;
-  min-height:550px;
+  background:
+  linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.75)),
+  url('hero-banner.jpg') center/cover no-repeat;
+  min-height:620px;
   display:flex;
   align-items:center;
   text-align:center;
   border-bottom:2px solid var(--red);
 }
 
-.hero-overlay{
-  background:rgba(0,0,0,.65);
+.hero-inner{
   width:100%;
-  padding:80px 20px;
 }
 
 .hero h1{
   font-family:'Oswald',sans-serif;
-  font-size:5rem;
+  font-size:6rem;
   letter-spacing:3px;
+  text-transform:uppercase;
 }
 
 .hero h1 span{
   color:var(--red2);
 }
 
-.hero p{
-  margin-top:15px;
-  font-size:1.2rem;
+.hero h2{
+  margin-top:10px;
+  font-size:1.3rem;
+  letter-spacing:2px;
   color:#ddd;
 }
 
-.hero .btn{
-  margin-top:25px;
+.hero p{
+  margin-top:20px;
+  font-size:1.15rem;
+  color:#bbb;
 }
 
-/* BUTTON */
 .btn{
   display:inline-block;
+  margin-top:28px;
   background:var(--red);
   padding:14px 26px;
-  font-weight:bold;
-  transition:.3s;
+  font-weight:700;
+  text-transform:uppercase;
   border:1px solid var(--red2);
+  transition:.25s;
 }
 
 .btn:hover{
   background:var(--red2);
 }
 
-/* SEARCH BAR */
-.search{
-  padding:25px 0;
-  background:#101010;
+/* FILTER BAR */
+.filters{
+  background:var(--black2);
+  padding:24px 0;
+  border-bottom:1px solid #1f1f1f;
 }
 
-.search-grid{
+.filter-grid{
   display:grid;
   grid-template-columns:2fr 1fr 1fr 1fr auto;
   gap:12px;
 }
 
-.search input,
-.search select{
+.filters input,
+.filters select{
+  background:#1a1a1a;
+  border:1px solid var(--line);
+  color:#fff;
   padding:14px;
-  background:#1b1b1b;
-  border:1px solid var(--border);
-  color:white;
 }
 
-/* SECTION */
+/* GLOBAL SECTION */
 section{
   padding:45px 0;
 }
@@ -157,31 +179,31 @@ section{
 .section-title{
   font-family:'Oswald',sans-serif;
   font-size:2rem;
-  margin-bottom:25px;
+  text-transform:uppercase;
+  margin-bottom:22px;
   border-left:5px solid var(--red);
-  padding-left:15px;
+  padding-left:14px;
 }
 
-/* MAIN GRID */
-.grid-2{
+.grid-main{
   display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:25px;
+  grid-template-columns:1.3fr 1fr;
+  gap:22px;
 }
 
-/* SHOW LIST */
-.show-list{
+/* SHOWS */
+.panel{
   background:var(--panel);
-  border:1px solid var(--border);
+  border:1px solid var(--line);
 }
 
 .show{
   display:grid;
-  grid-template-columns:100px 1fr 120px;
-  gap:15px;
-  padding:18px;
-  border-bottom:1px solid #222;
+  grid-template-columns:90px 1fr 120px;
+  gap:16px;
   align-items:center;
+  padding:18px;
+  border-bottom:1px solid #232323;
 }
 
 .date{
@@ -200,33 +222,41 @@ section{
 
 .band{
   font-size:1.2rem;
-  font-weight:bold;
+  font-weight:700;
 }
 
-.venue{
+.meta{
   color:var(--gray);
   margin-top:6px;
+  font-size:.95rem;
 }
 
-.ticket-btn{
+.ticket{
   text-align:center;
+}
+
+.ticket a{
+  background:var(--red);
+  padding:10px 18px;
+  display:inline-block;
+  font-weight:700;
 }
 
 /* PLAYLISTS */
 .cards{
   display:grid;
-  gap:15px;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
 }
 
 .card{
   background:var(--panel);
-  border:1px solid var(--border);
-  overflow:hidden;
+  border:1px solid var(--line);
 }
 
 .card img{
   width:100%;
-  height:180px;
+  height:190px;
   object-fit:cover;
 }
 
@@ -235,52 +265,111 @@ section{
 }
 
 .card h3{
+  font-size:1.05rem;
   margin-bottom:8px;
 }
 
-/* NEWS + MERCH */
-.grid-3{
+/* LOWER GRID */
+.grid-lower{
   display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:20px;
+  grid-template-columns:1fr 1.4fr;
+  gap:22px;
+}
+
+/* NEWS */
+.news-item{
+  display:flex;
+  gap:12px;
+  padding:14px;
+  border-bottom:1px solid #222;
+}
+
+.news-item img{
+  width:90px;
+  height:70px;
+  object-fit:cover;
+}
+
+.news-item h4{
+  font-size:.95rem;
+  margin-bottom:6px;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+}
+
+.product{
+  background:var(--panel);
+  border:1px solid var(--line);
+  text-align:center;
 }
 
 .product img{
-  width:100%;
   height:220px;
+  width:100%;
   object-fit:cover;
+}
+
+.product .info{
+  padding:14px;
+}
+
+.price{
+  color:#ccc;
+  margin:8px 0;
 }
 
 /* FOOTER */
 footer{
   background:#000;
   border-top:2px solid var(--red);
-  padding:40px 0;
-  margin-top:40px;
+  margin-top:50px;
+  padding:45px 0;
 }
 
 .footer-grid{
   display:grid;
   grid-template-columns:2fr 1fr 1fr;
-  gap:30px;
+  gap:24px;
 }
 
-.footer-logo{
+footer h3{
+  margin-bottom:12px;
   font-family:'Oswald',sans-serif;
-  font-size:2rem;
+  text-transform:uppercase;
 }
 
-small{
-  color:#777;
+footer p,
+footer li{
+  color:#aaa;
+  margin-bottom:8px;
+  list-style:none;
+}
+
+.newsletter input{
+  width:100%;
+  padding:12px;
+  background:#111;
+  border:1px solid #333;
+  color:#fff;
+  margin:10px 0;
 }
 
 /* MOBILE */
-@media(max-width:1000px){
-  .grid-2,
-  .grid-3,
-  .search-grid,
-  .footer-grid{
+@media(max-width:1100px){
+  .grid-main,
+  .grid-lower,
+  .footer-grid,
+  .filter-grid{
     grid-template-columns:1fr;
+  }
+
+  .products{
+    grid-template-columns:1fr 1fr;
   }
 
   nav ul{
@@ -288,12 +377,23 @@ small{
   }
 
   .hero h1{
-    font-size:3rem;
+    font-size:4rem;
+  }
+}
+
+@media(max-width:700px){
+  .cards,
+  .products{
+    grid-template-columns:1fr;
   }
 
   .show{
     grid-template-columns:1fr;
     text-align:center;
+  }
+
+  .hero h1{
+    font-size:3rem;
   }
 }
 </style>
@@ -302,96 +402,90 @@ small{
 <body>
 
 <header>
-  <div class="container nav">
-    <div class="logo">MATT'S<span>MOSH LIST</span></div>
+<div class="container navbar">
+<div class="logo">MOSH<span>LIST</span>.COM</div>
 
-    <nav>
-      <ul>
-        <li><a href="#">Concerts</a></li>
-        <li><a href="#">Playlists</a></li>
-        <li><a href="#">News</a></li>
-        <li><a href="#">Merch</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
-    </nav>
-  </div>
+<nav>
+<ul>
+<li><a href="#concerts">Concerts</a></li>
+<li><a href="#playlists">Playlists</a></li>
+<li><a href="#news">News</a></li>
+<li><a href="#merch">Merch</a></li>
+<li><a href="#about">About</a></li>
+</ul>
+</nav>
+</div>
 </header>
 
 <section class="hero">
-  <div class="hero-overlay">
-    <div class="container">
-      <h1>MATT'S<span>MOSH LIST</span></h1>
-      <p>All The Music. All The Shows. One List.</p>
-      <a href="#" class="btn">View Concerts</a>
-    </div>
-  </div>
+<div class="container hero-inner">
+<h1>MOSH<span>LIST</span></h1>
+<h2>BALTIMORE, MD</h2>
+<p>All The Shows. All The Chaos.</p>
+<a href="#concerts" class="btn">Find Shows</a>
+</div>
 </section>
 
-<section class="search">
-  <div class="container">
-    <div class="search-grid">
-      <input type="text" placeholder="Search bands...">
-      <select><option>Date</option></select>
-      <select><option>Venue</option></select>
-      <select><option>Genre</option></select>
-      <a href="#" class="btn">Search</a>
-    </div>
-  </div>
-</section>
-
-<section>
+<section class="filters">
 <div class="container">
+<div class="filter-grid">
+<input type="text" placeholder="Search bands, venues, keywords...">
+<select><option>Date</option></select>
+<select><option>Venue</option></select>
+<select><option>Genre</option></select>
+<a href="#" class="btn">Search</a>
+</div>
+</div>
+</section>
 
-<div class="grid-2">
+<section id="concerts">
+<div class="container grid-main">
 
-<!-- CONCERTS -->
 <div>
 <h2 class="section-title">Upcoming Shows</h2>
-
-<div class="show-list">
+<div class="panel">
 
 <div class="show">
-<div class="date">
-<div class="month">MAY</div>
-<div class="day">24</div>
-</div>
+<div class="date"><div class="month">MAY</div><div class="day">24</div></div>
 <div>
 <div class="band">Lamb of God</div>
-<div class="venue">CFG Bank Arena</div>
+<div class="meta">CFG Bank Arena • Baltimore, MD</div>
 </div>
-<div class="ticket-btn"><a href="#" class="btn">Tickets</a></div>
+<div class="ticket"><a href="#">Tickets</a></div>
 </div>
 
 <div class="show">
-<div class="date">
-<div class="month">JUN</div>
-<div class="day">02</div>
+<div class="date"><div class="month">MAY</div><div class="day">28</div></div>
+<div>
+<div class="band">Killswitch Engage</div>
+<div class="meta">Pier Six Pavilion</div>
 </div>
+<div class="ticket"><a href="#">Tickets</a></div>
+</div>
+
+<div class="show">
+<div class="date"><div class="month">JUN</div><div class="day">02</div></div>
 <div>
 <div class="band">Mastodon</div>
-<div class="venue">Pier Six Pavilion</div>
+<div class="meta">Rams Head Live</div>
 </div>
-<div class="ticket-btn"><a href="#" class="btn">Tickets</a></div>
+<div class="ticket"><a href="#">Tickets</a></div>
 </div>
 
 <div class="show">
-<div class="date">
-<div class="month">JUN</div>
-<div class="day">14</div>
-</div>
+<div class="date"><div class="month">JUN</div><div class="day">14</div></div>
 <div>
 <div class="band">Pantera</div>
-<div class="venue">CFG Bank Arena</div>
+<div class="meta">CFG Bank Arena</div>
 </div>
-<div class="ticket-btn"><a href="#" class="btn">Tickets</a></div>
-</div>
-
-</div>
+<div class="ticket"><a href="#">Tickets</a></div>
 </div>
 
-<!-- PLAYLISTS -->
-<div>
-<h2 class="section-title">Playlists</h2>
+</div>
+</div>
+
+<div id="playlists">
+<h2 class="section-title">Featured Playlists</h2>
 
 <div class="cards">
 
@@ -411,46 +505,105 @@ small{
 </div>
 </div>
 
+<div class="card">
+<img src="playlist3.jpg">
+<div class="card-content">
+<h3>New Blood</h3>
+<p>40 Songs</p>
+</div>
+</div>
+
+<div class="card">
+<img src="playlist4.jpg">
+<div class="card-content">
+<h3>Tour Bus Mix</h3>
+<p>60 Songs</p>
 </div>
 </div>
 
 </div>
+</div>
+
 </div>
 </section>
 
 <section>
-<div class="container">
+<div class="container grid-lower">
 
-<h2 class="section-title">News & Merch</h2>
+<div id="news">
+<h2 class="section-title">Latest News</h2>
 
-<div class="grid-3">
+<div class="panel">
 
-<div class="card">
+<div class="news-item">
 <img src="news1.jpg">
-<div class="card-content">
-<h3>Maryland Deathfest Announces Lineup</h3>
-<p>Biggest year yet.</p>
+<div>
+<h4>Maryland Deathfest Announces Lineup</h4>
+<p>May 15, 2026</p>
 </div>
 </div>
 
-<div class="card product">
+<div class="news-item">
+<img src="news2.jpg">
+<div>
+<h4>Soundstage Adds Second Room</h4>
+<p>May 10, 2026</p>
+</div>
+</div>
+
+<div class="news-item">
+<img src="news3.jpg">
+<div>
+<h4>Pantera Adds Baltimore Date</h4>
+<p>May 8, 2026</p>
+</div>
+</div>
+
+</div>
+</div>
+
+<div id="merch">
+<h2 class="section-title">Merch Store</h2>
+
+<div class="products">
+
+<div class="product">
 <img src="shirt.jpg">
-<div class="card-content">
-<h3>Mattalocalypse Tee</h3>
-<p>$24.99</p>
-<a href="#" class="btn">Buy Now</a>
+<div class="info">
+<h3>Skull Tee</h3>
+<div class="price">$24.99</div>
+<a href="#" class="btn">Buy</a>
 </div>
 </div>
 
-<div class="card product">
+<div class="product">
 <img src="hoodie.jpg">
-<div class="card-content">
-<h3>Skull Hoodie</h3>
-<p>$49.99</p>
-<a href="#" class="btn">Buy Now</a>
+<div class="info">
+<h3>Hoodie</h3>
+<div class="price">$49.99</div>
+<a href="#" class="btn">Buy</a>
 </div>
 </div>
 
+<div class="product">
+<img src="hat.jpg">
+<div class="info">
+<h3>Snapback</h3>
+<div class="price">$24.99</div>
+<a href="#" class="btn">Buy</a>
+</div>
+</div>
+
+<div class="product">
+<img src="poster.jpg">
+<div class="info">
+<h3>Poster</h3>
+<div class="price">$15.00</div>
+<a href="#" class="btn">Buy</a>
+</div>
+</div>
+
+</div>
 </div>
 
 </div>
@@ -460,27 +613,31 @@ small{
 <div class="container footer-grid">
 
 <div>
-<div class="footer-logo">MATT'S MOSH LIST</div>
-<p>Baltimore's home for live shows, playlists and chaos.</p>
+<h3>MoshList.com</h3>
+<p>Baltimore's all-in-one source for concerts, playlists, merch and scene news.</p>
 </div>
 
 <div>
 <h3>Quick Links</h3>
-<p><a href="#">Concerts</a></p>
-<p><a href="#">News</a></p>
-<p><a href="#">Merch</a></p>
+<ul>
+<li>Concerts</li>
+<li>Playlists</li>
+<li>News</li>
+<li>Merch</li>
+</ul>
 </div>
 
-<div>
-<h3>Newsletter</h3>
-<p>Get weekly show drops.</p>
-<input style="width:100%;padding:12px;margin-top:10px;background:#111;border:1px solid #333;color:white;" placeholder="Email">
+<div class="newsletter">
+<h3>Join The Mosh List</h3>
+<p>Get weekly show alerts.</p>
+<input type="email" placeholder="Email Address">
+<a href="#" class="btn">Subscribe</a>
 </div>
 
 </div>
 
-<div class="container" style="margin-top:30px;">
-<small>© 2026 moshlist.com</small>
+<div class="container" style="margin-top:30px;color:#666;">
+© 2026 MoshList.com
 </div>
 </footer>
 
