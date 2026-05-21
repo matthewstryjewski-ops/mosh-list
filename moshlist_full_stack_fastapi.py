@@ -449,3 +449,8 @@ def get_current_setlist(band: str):
 # SETLIST_API_KEY=Ub2-ndhLiZsRDqrNdoPjaRXZvjlmCZ8kl80j
 #
 # py -m uvicorn moshlist_full_stack_fastapi:app --reload
+
+if __name__ == '__main__':
+    import uvicorn
+    # Render requires the app to bind to 0.0.0.0
+    uvicorn.run("moshlist_full_stack_fastapi:app", host="0.0.0.0", port=8000, reload=False)
