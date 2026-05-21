@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moshlist App</title>
+    <style>
+        /* Simple, clean styling for your layout */
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            white-space: pre-wrap; /* Preserves text formatting/newlines from your script */
+            min-height: 50px;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Moshlist Data Feed</h1>
+    <p>Click the button below to fetch the latest updates from the Python script.</p>
+    
+    <!-- This button acts as the interactive trigger -->
+    <button id="runBtn">Fetch Latest List</button>
+    
+    <!-- This container is where your Python results will magically print out -->
+    <div id="output">Results will appear here...</div>
+
+    <script>
+        document.getElementById('runBtn').addEventListener('click', async () => {
+            const outputDiv = document.getElementById('output');
+            
+            // 1. Show a loading state so the user knows something is happening
+            outputDiv.innerHTML = '<span class="loading">Running Python script and fetching data...</span>';
+
+            // 2. Define your specific live API endpoint path
+            // REPLACE THIS URL with your actual live Render web service domain!
+            const API_URL = 'https://your-app-name.onrender.com/your-endpoint-path';
+
+            try {
+                // 3. Make the web request to your live FastAPI container
+                const response = await fetch(API_URL);
+                
+                if (!response.ok) {
+                    throw new Error(`Server responded with status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                // 4. Update the page content with the data returned by your script.
+                // Note: Change 'data.result' to match the exact JSON key your script outputs 
+                // (e.g., data.status, data.shows, or JSON.stringify(data, null, 2) to see everything)
+                if (data.result) {
+                    outputDiv.innerText = data.result;
+                } else {
+                    outputDiv.innerText = JSON.stringify(data, null, 2);
+                }
+
+            } catch (error) {
+                // 5. Catch network errors gracefully
+                outputDiv.innerText = `Error connecting to backend: ${error.message}`;
+                console.error('Fetch error:', error);
+            }
+        });
+    </script>
+
+</body>
+</html>
