@@ -87,7 +87,8 @@ for show in all_shows:
     if show['support'] and show['support'] != "None":
         artist_display += f" <span style='font-size: 0.85em; font-weight: normal; color: #888;'>w/ {show['support']}</span>"
 
-    cards_html += f"""    <div class='show'>
+    cards_html += f"""    <div class='panel'>
+    <div class='show'>
         <div class='date'>
             <div class='m'>{month_str}</div>
             <div class='d'>{day_str}</div>
@@ -97,7 +98,7 @@ for show in all_shows:
             <div class='meta'>{show['venue']}</div>
         </div>
         <a class='btn' href='{show['ticket']}' target='_blank'>Tickets</a>
-    </div>\n"""
+    </div></div>\n"""
 
 # 3. Splice the new blocks between your two text markers
 import re
