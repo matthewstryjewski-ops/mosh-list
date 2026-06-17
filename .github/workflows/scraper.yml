@@ -1,0 +1,39 @@
+name: Run Concert Scraper
+
+on:
+  schedule:
+    # This automatically updates your site every morning at 4:00 AM UTC (12:00 AM EST)
+    - cron: '0 4 * * *'
+  workflow_dispatch: # This adds a manual "Play" button on GitHub so you can test it anytime
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Crucial: Gives GitHub permission to save the updated index.html back to your site
+
+    steps:
+    - name: Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests python-dateutil beautifulsoup4
+
+    - name: Run the scraper script
+      run: python scraper.py
+
+    - name: Commit and push changes back to page
+      run: |
+        git config --global user.name "GitHub Action"
+        git config --global user.email "actions@github.com"
+        git add index.html
+        # Only commits if there are actual adjustments to the concert schedule
+        git diff-index --quiet HEAD || git commit -m "Auto-updated live concert schedule"
+        git push
