@@ -36,38 +36,58 @@ all_shows = []
 # 2. Scrape the data from both sites
 for venue in venues:
     try:
-        response = requests.get(venue['url'], headers=headers, timeout=10)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        events = soup.select(venue['container'])
+        # Determine how many pages to loop through
+        # Nevermore Hall has multiple pages, Baltimore Soundstage generally uses an infinite calendar panel
+        total_pages = 3 if venue['name'] == "Nevermore Hall" else 1
         
-        for event in events:
-            sel = venue['selectors']
+        for page_num in range(1, total_pages + 1):
+            # Format the target URL if navigating deeper pages
+            if venue['name'] == "Nevermore Hall" and page_num > 1:
+                target_url = f"{venue['url']}page/{page_num}/"
+            else:
+                target_url = venue['url']
+                
+            print(f"Scraping {venue['name']} - Page {page_num}...")
             
-            title = event.select_one(sel['title']).get_text(strip=True) if event.select_one(sel['title']) else "Unknown Artist"
-            date_str = event.select_one(sel['date']).get_text(strip=True) if event.select_one(sel['date']) else "TBD"
-            support = event.select_one(sel['support']).get_text(strip=True) if event.select_one(sel['support']) else "None"
-            time_val = event.select_one(sel['time']).get_text(strip=True) if event.select_one(sel['time']) else ""
+            response = requests.get(target_url, headers=headers, timeout=10)
             
-            t_link = event.select_one(sel['ticket'])
-            ticket_url = t_link['href'] if t_link and t_link.has_attr('href') else "#"
+            # If a pagination page doesn't exist, break out early safely
+            if response.status_code == 404:
+                print(f"Reached the end of pages for {venue['name']}.")
+                break
+                
+            soup = BeautifulSoup(response.text, 'html.parser')
+            events = soup.select(venue['container'])
+            
+            for event in events:
+                sel = venue['selectors']
+                
+                title = event.select_one(sel['title']).get_text(strip=True) if event.select_one(sel['title']) else "Unknown Artist"
+                date_str = event.select_one(sel['date']).get_text(strip=True) if event.select_one(sel['date']) else "TBD"
+                support = event.select_one(sel['support']).get_text(strip=True) if event.select_one(sel['support']) else "None"
+                time_val = event.select_one(sel['time']).get_text(strip=True) if event.select_one(sel['time']) else ""
+                
+                t_link = event.select_one(sel['ticket'])
+                ticket_url = t_link['href'] if t_link and t_link.has_attr('href') else "#"
 
-            try:
-                clean_date = parser.parse(date_str, fuzzy=True)
-            except:
-                clean_date = parser.parse("2026-12-31")
+                try:
+                    clean_date = parser.parse(date_str, fuzzy=True)
+                except:
+                    clean_date = parser.parse("2026-12-31")
 
-            all_shows.append({
-                "venue": venue['name'],
-                "date_obj": clean_date,
-                "date_str": date_str,
-                "title": title,
-                "support": support,
-                "time": time_val,
-                "ticket": ticket_url
-            })
+                all_shows.append({
+                    "venue": venue['name'],
+                    "date_obj": clean_date,
+                    "date_str": date_str,
+                    "title": title,
+                    "support": support,
+                    "time": time_val,
+                    "ticket": ticket_url
+                })
+                
     except Exception as e:
         print(f"Error scraping {venue['name']}: {e}")
-
+        
 # 3. Sort chronologically
 all_shows.sort(key=lambda x: x['date_obj'])
 
